@@ -346,23 +346,17 @@ public client_death(killer, victim, wpnindex, hitplace, TK)
 	if (!get_pcvar_bool(g_cPlayerEventDeath))
 		return;
 
-	new sKillerName[MAX_NAME_LENGTH];
-	get_user_name(killer, sKillerName, charsmax(sKillerName));
-
-	new sVictimName[MAX_NAME_LENGTH];
-	get_user_name(victim, sVictimName, charsmax(sVictimName));
-
 	new sWpnName[MAX_NAME_LENGTH];
 	xmod_get_wpnname(wpnindex, sWpnName, charsmax(sWpnName));
 
 	new sMessage[MAX_COMMAND_LENGTH];
 	if (hitplace == HIT_HEAD)
 	{
-		formatex(sMessage, charsmax(sMessage), "\*\*\* %s killed %s with a headshot from %s \*\*\*", sKillerName, sVictimName, sWpnName);
+		formatex(sMessage, charsmax(sMessage), "\*\*\* %n killed %n with a headshot from %s \*\*\*", killer, victim, sWpnName);
 	}
 	else
 	{
-		formatex(sMessage, charsmax(sMessage), "%s killed %s with %s", sKillerName, sVictimName, sWpnName);
+		formatex(sMessage, charsmax(sMessage), "%n killed %n with %s", killer, victim, sWpnName);
 	}
 
 	dispatchEventMessage("Player Death", sMessage);
