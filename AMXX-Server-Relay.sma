@@ -336,7 +336,7 @@ public client_disconnected(id)
 public reportNumberOfPlayers()
 {
 	new sPlayersNum[8];
-	format(sPlayersNum, charsmax(sPlayersNum), "%d", get_playersnum());
+	formatex(sPlayersNum, charsmax(sPlayersNum), "%d", get_playersnum());
 
 	dispatchEventMessage("Players Online", sPlayersNum);
 }
@@ -358,11 +358,11 @@ public client_death(killer, victim, wpnindex, hitplace, TK)
 	new sMessage[MAX_COMMAND_LENGTH];
 	if (hitplace == HIT_HEAD)
 	{
-		format(sMessage, charsmax(sMessage), "\*\*\* %s killed %s with a headshot from %s \*\*\*", sKillerName, sVictimName, sWpnName);
+		formatex(sMessage, charsmax(sMessage), "\*\*\* %s killed %s with a headshot from %s \*\*\*", sKillerName, sVictimName, sWpnName);
 	}
 	else
 	{
-		format(sMessage, charsmax(sMessage), "%s killed %s with %s", sKillerName, sVictimName, sWpnName);
+		formatex(sMessage, charsmax(sMessage), "%s killed %s with %s", sKillerName, sVictimName, sWpnName);
 	}
 
 	dispatchEventMessage("Player Death", sMessage);
