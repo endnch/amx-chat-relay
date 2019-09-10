@@ -84,18 +84,18 @@ public plugin_init()
 
 public OnConfigsExecuted()
 {
-	bind_pcvar_string(g_cHost, g_sHost, MAX_NAME_LENGTH);
+	bind_pcvar_string(g_cHost, g_sHost, charsmax(g_sHost));
 	bind_pcvar_num(g_cPort, g_iPort);
 
 	new hostname[MAX_NAME_LENGTH];
-	get_pcvar_string(g_cHostname, hostname, MAX_NAME_LENGTH);	
+	get_pcvar_string(g_cHostname, hostname, charsmax(hostname));	
 	if (strlen(hostname) == 0)
 	{
-		get_user_name(0, g_sHostname, MAX_NAME_LENGTH);
+		get_user_name(0, g_sHostname, charsmax(g_sHostname));
 	}
 	else
 	{
-		bind_pcvar_string(g_cHostname, g_sHostname, MAX_NAME_LENGTH);
+		bind_pcvar_string(g_cHostname, g_sHostname, charsmax(g_sHostname));
 	}
 
 	establishConnection();
@@ -118,9 +118,9 @@ public establishConnection()
 	else
 	{
 	    new sIp[MAX_NAME_LENGTH], sPort[MAX_NAME_LENGTH];
-	    get_user_ip(0, sIp, MAX_NAME_LENGTH);
+	    get_user_ip(0, sIp, charsmax(sIp));
 
-	    strtok(sIp, sIp, MAX_NAME_LENGTH, sPort, MAX_NAME_LENGTH, ':');
+	    strtok(sIp, sIp, charsmax(sIp), sPort, charsmax(sPort), ':');
 
 	    new path[128];
 	    get_datadir(path, 128);
@@ -276,7 +276,7 @@ public tryToReconnect()
 public handleSay(id)
 {
 	new sMessage[MAX_COMMAND_LENGTH];
-	read_argv(1, sMessage, MAX_COMMAND_LENGTH);
+	read_argv(1, sMessage, charsmax(sMessage));
 
 	if (strlen(sMessage) == 0)
 	{
@@ -284,10 +284,10 @@ public handleSay(id)
 	}
 
 	new sPlayerName[MAX_NAME_LENGTH];
-	get_user_name(id, sPlayerName, MAX_NAME_LENGTH);
+	get_user_name(id, sPlayerName, charsmax(sPlayerName));
 
 	new sAuthId[MAX_NAME_LENGTH];
-	get_user_authid(id, sAuthId, MAX_NAME_LENGTH);
+	get_user_authid(id, sAuthId, charsmax(sAuthId));
 
 	new sDump[MAX_BUFFER_LENGTH];
 	new index = 0;
@@ -309,7 +309,7 @@ public client_putinserver(id)
 		return;
 
 	new sPlayerName[MAX_NAME_LENGTH];
-	get_user_name(id, sPlayerName, MAX_NAME_LENGTH);
+	get_user_name(id, sPlayerName, charsmax(sPlayerName));
 
 	dispatchEventMessage("Player Connected", sPlayerName);
 
@@ -325,7 +325,7 @@ public client_disconnected(id)
 		return;
 
 	new sPlayerName[MAX_NAME_LENGTH];
-	get_user_name(id, sPlayerName, MAX_NAME_LENGTH);
+	get_user_name(id, sPlayerName, charsmax(sPlayerName));
 
 	dispatchEventMessage("Player Disonnected", sPlayerName);
 
@@ -338,7 +338,7 @@ public client_disconnected(id)
 public reportNumberOfPlayers()
 {
 	new sPlayersNum[8];
-	format(sPlayersNum, 8, "%d", get_playersnum());
+	format(sPlayersNum, charsmax(sPlayersNum), "%d", get_playersnum());
 
 	dispatchEventMessage("Players Online", sPlayersNum);
 }
@@ -349,22 +349,22 @@ public client_death(killer, victim, wpnindex, hitplace, TK)
 		return;
 
 	new sKillerName[MAX_NAME_LENGTH];
-	get_user_name(killer, sKillerName, MAX_NAME_LENGTH);
+	get_user_name(killer, sKillerName, charsmax(sKillerName));
 
 	new sVictimName[MAX_NAME_LENGTH];
-	get_user_name(victim, sVictimName, MAX_NAME_LENGTH);
+	get_user_name(victim, sVictimName, charsmax(sVictimName));
 
 	new sWpnName[MAX_NAME_LENGTH];
-	xmod_get_wpnname(wpnindex, sWpnName, MAX_NAME_LENGTH);
+	xmod_get_wpnname(wpnindex, sWpnName, charsmax(sWpnName));
 
 	new sMessage[MAX_COMMAND_LENGTH];
 	if (hitplace == HIT_HEAD)
 	{
-		format(sMessage, MAX_COMMAND_LENGTH, "\*\*\* %s killed %s with a headshot from %s \*\*\*", sKillerName, sVictimName, sWpnName);
+		format(sMessage, charsmax(sMessage), "\*\*\* %s killed %s with a headshot from %s \*\*\*", sKillerName, sVictimName, sWpnName);
 	}
 	else
 	{
-		format(sMessage, MAX_COMMAND_LENGTH, "%s killed %s with %s", sKillerName, sVictimName, sWpnName);
+		format(sMessage, charsmax(sMessage), "%s killed %s with %s", sKillerName, sVictimName, sWpnName);
 	}
 
 	dispatchEventMessage("Player Death", sMessage);
@@ -381,7 +381,7 @@ OnMapStart()
 		return;
 
 	new sMapName[MAX_NAME_LENGTH];
-	get_mapname(sMapName, MAX_NAME_LENGTH);
+	get_mapname(sMapName, charsmax(sMapName));
 
 	dispatchEventMessage("Map Start", sMapName);
 }
@@ -392,7 +392,7 @@ OnMapEnd()
 		return;
 
 	new sMapName[MAX_NAME_LENGTH];
-	get_mapname(sMapName, MAX_NAME_LENGTH);
+	get_mapname(sMapName, charsmax(sMapName));
 
 	dispatchEventMessage("Map Ended", sMapName);
 }
