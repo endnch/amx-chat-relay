@@ -1,8 +1,6 @@
 #include <amxmodx>
-#include <amxconst>
 #include <sockets>
 #include <tsx>
-#include <cvars>
 #include <amxmisc>
 
 #define MAX_EVENT_NAME_LENGTH 128
