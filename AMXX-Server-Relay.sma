@@ -7,7 +7,7 @@
 #define MAX_COMMAND_LENGTH 512
 #define MAX_BUFFER_LENGTH 1024
 #define MAX_NAME_LENGTH 32
-#define PLUGIN_NAME "AMX-Server-Relay"
+#define PLUGIN_NAME "AMXX-Server-Relay"
 
 new g_sHostname[MAX_NAME_LENGTH];
 new g_sHost[MAX_NAME_LENGTH];
